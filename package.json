@@ -8,14 +8,15 @@
     "start-api": "json-server --watch db.json --port 3001"
   },
   "dependencies": {
-    "@apollo/react-hooks": "3.0.0",
+    "@apollo/react-hooks": "^3.0.0",
     "@apollo/react-ssr": "3.0.0",
+    "apollo-boost": "^0.4.4",
     "apollo-cache-inmemory": "1.6.3",
     "apollo-client": "2.6.4",
     "apollo-datasource-rest": "^0.6.6",
     "apollo-link-http": "1.5.15",
     "apollo-server-express": "^2.9.7",
-    "graphql": "^14.0.2",
+    "graphql": "^14.5.8",
     "graphql-tag": "2.10.1",
     "isomorphic-unfetch": "^3.0.0",
     "json-server": "^0.15.1",
