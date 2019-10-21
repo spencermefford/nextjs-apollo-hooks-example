@@ -1,0 +1,9 @@
+{
+  "tasks": [
+      { "id": 1, "title": "Go shopping", "completed": false },
+      { "id": 2, "title": "Wash the dogs", "completed": false },
+      { "id": 3, "title": "Make the bed", "completed": false },
+      { "id": 4, "title": "Call parents", "completed": false },
+      { "id": 5, "title": "Pay the bills", "completed": false }
+  ]
+}
