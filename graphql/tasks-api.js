@@ -9,6 +9,10 @@ class TasksAPI extends RESTDataSource {
   async getTasks() {
     return this.get('tasks');
   }
+
+  async createTask(title) {
+    return this.post('tasks', { title });
+  }
 }
 
 module.exports = TasksAPI;
