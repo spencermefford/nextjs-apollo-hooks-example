@@ -2,7 +2,7 @@
   "name": "with-apollo",
   "version": "2.0.0",
   "scripts": {
-    "dev": "node server.js",
+    "dev": "concurrently --names \"next,api\" -c \"bgBlue,bgMagenta\" \"node server.js\" \"npm:start-api\"",
     "build": "next build",
     "start": "NODE_ENV=production node server.js",
     "start-api": "json-server --watch db.json --port 3001"
@@ -26,5 +26,8 @@
     "react": "^16.12.0",
     "react-dom": "^16.12.0"
   },
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^5.1.0"
+  }
 }

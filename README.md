@@ -3,12 +3,10 @@
 A sample app that utilizes Next.js and Apollo with React hooks.
 
 ## Run the App
+
 ```
 npm i
 
-# Start the Next.js and Apollo server
-npm run dev 
-
-# Start the mock API
-npm run start-api
+# Start Next.js, Apollo server, and mock data API
+npm run dev
 ```
