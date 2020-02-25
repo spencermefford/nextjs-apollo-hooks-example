@@ -7,6 +7,10 @@ const TaskWrapper = styled.div`
   margin-bottom: 5px;
 `;
 
+const StyledCheckbox = styled.input`
+  margin-right: 8px;
+`;
+
 const DeleteButton = styled.button`
   cursor: pointer;
 `;
@@ -16,7 +20,7 @@ const Task = ({ task, onCompleted, onDelete }) => {
 
   return (
     <TaskWrapper>
-      <input
+      <StyledCheckbox
         type="checkbox"
         checked={task.completed}
         onChange={event => {

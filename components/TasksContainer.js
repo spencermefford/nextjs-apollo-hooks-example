@@ -1,6 +1,7 @@
 import { gql, useQuery, useMutation } from '@apollo/client';
 import Task from './Task';
 import { TASKS_QUERY, DELETE_TASK } from '../lib/graphql/tasks';
+import styled from 'styled-components';
 
 const CREATE_TASK = gql`
   mutation CreateTask($title: String!) {
@@ -18,6 +19,12 @@ const COMPLETE_TASK = gql`
       completed
     }
   }
+`;
+
+const TaskListWrapper = styled.ul`
+  list-style: none;
+  padding-left: 0;
+  margin: 25px 0;
 `;
 
 const TasksContainer = () => {
@@ -68,28 +75,23 @@ const TasksContainer = () => {
 
   return (
     <div>
-      <style jsx>{`
-        ul {
-          margin-top: 15px;
-          padding: 0 20px;
-        }
-      `}</style>
       <input
         type="text"
         onKeyDown={handleKeyDown}
         placeholder="Add a task..."
+        autoFocus={true}
       />
-      <ul>
+      <TaskListWrapper>
         {data.tasks.map(task => (
           <li key={task.id}>
             <Task
               task={task}
               onCompleted={handleCompleted}
               onDelete={handleDelete}
-            ></Task>
+            />
           </li>
         ))}
-      </ul>
+      </TaskListWrapper>
     </div>
   );
 };
