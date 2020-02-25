@@ -1,28 +1,12 @@
 import { gql, useQuery, useMutation } from '@apollo/client';
 import Task from './Task';
-
-const TASKS_QUERY = gql`
-  query Tasks {
-    tasks {
-      id
-      title
-    }
-  }
-`;
+import { TASKS_QUERY, DELETE_TASK } from '../lib/graphql/tasks';
 
 const CREATE_TASK = gql`
   mutation CreateTask($title: String!) {
     createTask(title: $title) {
       id
       title
-    }
-  }
-`;
-
-const DELETE_TASK = gql`
-  mutation DeleteTask($id: ID!) {
-    deleteTask(id: $id) {
-      success
     }
   }
 `;
