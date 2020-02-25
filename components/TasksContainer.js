@@ -1,5 +1,4 @@
-import { gql } from 'apollo-boost';
-import { useQuery, useMutation } from '@apollo/react-hooks';
+import { gql, useQuery, useMutation } from '@apollo/client';
 import Task from './Task';
 
 const TASKS_QUERY = gql`
@@ -20,9 +19,18 @@ const CREATE_TASK = gql`
   }
 `;
 
+const DELETE_TASK = gql`
+  mutation DeleteTask($id: ID!) {
+    deleteTask(id: $id) {
+      success
+    }
+  }
+`;
+
 const TasksContainer = () => {
   const { loading, data } = useQuery(TASKS_QUERY);
   const [addTask] = useMutation(CREATE_TASK);
+  const [deleteTask] = useMutation(DELETE_TASK);
 
   if (loading) return <div>Loading...</div>;
 
@@ -37,6 +45,21 @@ const TasksContainer = () => {
           cache.writeQuery({
             query: TASKS_QUERY,
             data: { tasks: tasks.concat([createTask]) },
+          });
+        },
+      });
+    }
+  };
+
+  const handleDelete = id => {
+    if (confirm('Are you sure you want to delete that task?')) {
+      deleteTask({
+        variables: { id },
+        update: cache => {
+          const { tasks = [] } = cache.readQuery({ query: TASKS_QUERY });
+          cache.writeQuery({
+            query: TASKS_QUERY,
+            data: { tasks: tasks.filter(task => task.id !== id) },
           });
         },
       });
@@ -59,7 +82,7 @@ const TasksContainer = () => {
       <ul>
         {data.tasks.map(task => (
           <li key={task.id}>
-            <Task task={task}></Task>
+            <Task task={task} onDelete={handleDelete}></Task>
           </li>
         ))}
       </ul>

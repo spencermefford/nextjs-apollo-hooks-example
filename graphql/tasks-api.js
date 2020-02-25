@@ -13,6 +13,10 @@ class TasksAPI extends RESTDataSource {
   async createTask(title) {
     return this.post('tasks', { title });
   }
+
+  async deleteTask(id) {
+    return this.delete(`tasks/${id}`);
+  }
 }
 
 module.exports = TasksAPI;

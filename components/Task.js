@@ -1,9 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Task = (props) => {
-  const { task } = props;
-  return <div>{task.title}</div>;
+const Task = ({ task, onDelete }) => {
+  return (
+    <div>
+      {task.title}{' '}
+      <a
+        href="#"
+        title="Delete"
+        onClick={() => {
+          onDelete(task.id);
+        }}
+      >
+        [delete]
+      </a>
+    </div>
+  );
 };
 
 Task.propTypes = {

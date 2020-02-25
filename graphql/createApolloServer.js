@@ -1,4 +1,5 @@
 const { ApolloServer, gql } = require('apollo-server-express');
+const { isEmpty } = require('lodash');
 const TasksAPI = require('./tasks-api');
 
 // Construct a schema, using GraphQL schema language
@@ -8,12 +9,17 @@ const typeDefs = gql`
     title: String
   }
 
+  type MutationPayload {
+    success: Boolean
+  }
+
   type Query {
     tasks: [Task]!
   }
 
   type Mutation {
     createTask(title: String!): Task!
+    deleteTask(id: ID!): MutationPayload!
   }
 `;
 
@@ -26,6 +32,10 @@ const resolvers = {
   Mutation: {
     createTask: async (_source, _args, { dataSources }) =>
       dataSources.tasksAPI.createTask(_args.title),
+    deleteTask: async (_source, _args, { dataSources }) => {
+      const resp = await dataSources.tasksAPI.deleteTask(_args.id);
+      return { success: isEmpty(resp) };
+    },
   },
 };
 
