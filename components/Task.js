@@ -11,10 +11,18 @@ const DeleteButton = styled.button`
   cursor: pointer;
 `;
 
-const Task = ({ task, onDelete }) => {
+const Task = ({ task, onCompleted, onDelete }) => {
   const { id, title } = task;
+
   return (
     <TaskWrapper>
+      <input
+        type="checkbox"
+        checked={task.completed}
+        onChange={event => {
+          onCompleted(id, event.target.checked);
+        }}
+      />
       <Link href="/task/[id]" as={`/task/${id}`}>
         <a>{title}</a>
       </Link>{' '}

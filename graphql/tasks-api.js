@@ -18,6 +18,10 @@ class TasksAPI extends RESTDataSource {
     return this.post('tasks', { title });
   }
 
+  async updateTask(id, task) {
+    return this.patch(`tasks/${id}`, task);
+  }
+
   async deleteTask(id) {
     return this.delete(`tasks/${id}`);
   }

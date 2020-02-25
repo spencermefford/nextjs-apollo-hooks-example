@@ -11,9 +11,19 @@ const CREATE_TASK = gql`
   }
 `;
 
+const COMPLETE_TASK = gql`
+  mutation CompleteTask($id: ID!, $completed: Boolean!) {
+    completeTask(id: $id, completed: $completed) {
+      id
+      completed
+    }
+  }
+`;
+
 const TasksContainer = () => {
   const { loading, data } = useQuery(TASKS_QUERY);
   const [addTask] = useMutation(CREATE_TASK);
+  const [completeTask] = useMutation(COMPLETE_TASK);
   const [deleteTask] = useMutation(DELETE_TASK);
 
   if (loading) return <div>Loading...</div>;
@@ -33,6 +43,12 @@ const TasksContainer = () => {
         },
       });
     }
+  };
+
+  const handleCompleted = (id, completed) => {
+    completeTask({
+      variables: { id, completed },
+    });
   };
 
   const handleDelete = id => {
@@ -66,7 +82,11 @@ const TasksContainer = () => {
       <ul>
         {data.tasks.map(task => (
           <li key={task.id}>
-            <Task task={task} onDelete={handleDelete}></Task>
+            <Task
+              task={task}
+              onCompleted={handleCompleted}
+              onDelete={handleDelete}
+            ></Task>
           </li>
         ))}
       </ul>

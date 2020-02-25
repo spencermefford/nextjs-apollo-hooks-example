@@ -7,6 +7,7 @@ const typeDefs = gql`
   type Task {
     id: ID!
     title: String
+    completed: Boolean
   }
 
   type MutationPayload {
@@ -20,6 +21,8 @@ const typeDefs = gql`
 
   type Mutation {
     createTask(title: String!): Task!
+    renameTask(id: ID!, title: String!): Task!
+    completeTask(id: ID!, completed: Boolean!): Task!
     deleteTask(id: ID!): MutationPayload!
   }
 `;
@@ -35,6 +38,10 @@ const resolvers = {
   Mutation: {
     createTask: async (_source, { title }, { dataSources }) =>
       dataSources.tasksAPI.createTask(title),
+    renameTask: async (_source, { id, title }, { dataSources }) =>
+      dataSources.tasksAPI.updateTask(id, { title }),
+    completeTask: async (_source, { id, completed }, { dataSources }) =>
+      dataSources.tasksAPI.updateTask(id, { completed }),
     deleteTask: async (_source, { id }, { dataSources }) => {
       const resp = await dataSources.tasksAPI.deleteTask(id);
       return { success: isEmpty(resp) };

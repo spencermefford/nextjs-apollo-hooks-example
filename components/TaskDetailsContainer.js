@@ -9,6 +9,7 @@ const TASK_QUERY = gql`
     task(id: $id) {
       id
       title
+      completed
     }
   }
 `;
