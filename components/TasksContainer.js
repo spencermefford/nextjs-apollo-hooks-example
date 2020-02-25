@@ -25,7 +25,7 @@ const TaskListWrapper = styled.ul`
 
 const TasksContainer = () => {
   const { loading, data } = useQuery(TASKS_QUERY);
-  const [addTask] = useMutation(CREATE_TASK);
+  const [createTask] = useMutation(CREATE_TASK);
   const [completeTask] = useMutation(COMPLETE_TASK);
   const [deleteTask] = useMutation(DELETE_TASK);
 
@@ -35,7 +35,7 @@ const TasksContainer = () => {
     if (e.key === 'Enter') {
       const title = e.target.value;
       e.target.value = '';
-      addTask({
+      createTask({
         variables: { title },
         update: (cache, { data: { createTask } }) => {
           const { tasks } = cache.readQuery({ query: TASKS_QUERY });
@@ -43,6 +43,15 @@ const TasksContainer = () => {
             query: TASKS_QUERY,
             data: { tasks: tasks.concat([createTask]) },
           });
+        },
+        optimisticResponse: {
+          __typename: 'Mutation',
+          createTask: {
+            id: '-1',
+            title: 'foo',
+            completed: false,
+            __typename: 'Task',
+          },
         },
       });
     }
