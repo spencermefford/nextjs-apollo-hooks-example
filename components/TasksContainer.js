@@ -12,6 +12,7 @@ const CREATE_TASK = gql`
     createTask(title: $title) {
       id
       title
+      completed
     }
   }
 `;
