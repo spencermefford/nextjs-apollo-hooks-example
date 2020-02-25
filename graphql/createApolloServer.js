@@ -15,6 +15,7 @@ const typeDefs = gql`
 
   type Query {
     tasks: [Task]!
+    task(id: ID!): Task
   }
 
   type Mutation {
@@ -28,12 +29,14 @@ const resolvers = {
   Query: {
     tasks: async (_source, _args, { dataSources }) =>
       dataSources.tasksAPI.getTasks(),
+    task: async (_source, { id }, { dataSources }) =>
+      dataSources.tasksAPI.getTask(id),
   },
   Mutation: {
-    createTask: async (_source, _args, { dataSources }) =>
-      dataSources.tasksAPI.createTask(_args.title),
-    deleteTask: async (_source, _args, { dataSources }) => {
-      const resp = await dataSources.tasksAPI.deleteTask(_args.id);
+    createTask: async (_source, { title }, { dataSources }) =>
+      dataSources.tasksAPI.createTask(title),
+    deleteTask: async (_source, { id }, { dataSources }) => {
+      const resp = await dataSources.tasksAPI.deleteTask(id);
       return { success: isEmpty(resp) };
     },
   },

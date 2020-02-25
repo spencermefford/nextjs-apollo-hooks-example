@@ -10,6 +10,10 @@ class TasksAPI extends RESTDataSource {
     return this.get('tasks');
   }
 
+  async getTask(id) {
+    return this.get(`tasks/${id}`);
+  }
+
   async createTask(title) {
     return this.post('tasks', { title });
   }
