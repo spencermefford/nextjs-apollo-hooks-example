@@ -1,6 +1,10 @@
 import { gql, useQuery, useMutation } from '@apollo/client';
 import Task from './Task';
-import { TASKS_QUERY, DELETE_TASK } from '../lib/graphql/tasks';
+import {
+  TASKS_QUERY,
+  DELETE_TASK,
+  COMPLETE_TASK,
+} from '../lib/graphql/tasks.graphql';
 import styled from 'styled-components';
 
 const CREATE_TASK = gql`
@@ -8,15 +12,6 @@ const CREATE_TASK = gql`
     createTask(title: $title) {
       id
       title
-    }
-  }
-`;
-
-const COMPLETE_TASK = gql`
-  mutation CompleteTask($id: ID!, $completed: Boolean!) {
-    completeTask(id: $id, completed: $completed) {
-      id
-      completed
     }
   }
 `;

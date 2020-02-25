@@ -2,7 +2,11 @@ import Link from 'next/link';
 import Router from 'next/router';
 import Error from 'next/error';
 import { gql, useQuery, useMutation } from '@apollo/client';
-import { DELETE_TASK, TASKS_QUERY } from '../lib/graphql/tasks';
+import {
+  DELETE_TASK,
+  TASKS_QUERY,
+  COMPLETE_TASK,
+} from '../lib/graphql/tasks.graphql';
 
 const TASK_QUERY = gql`
   query Task($id: ID!) {
@@ -28,6 +32,7 @@ const TaskDetailsContainer = ({ taskId }) => {
     variables: { id: taskId },
   });
   const [renameTask] = useMutation(RENAME_TASK);
+  const [completeTask] = useMutation(COMPLETE_TASK);
   const [deleteTask] = useMutation(DELETE_TASK, {
     onCompleted: () => {
       Router.replace('/');
@@ -39,7 +44,7 @@ const TaskDetailsContainer = ({ taskId }) => {
   if (!data.task) return <Error statusCode={404} />;
 
   const { task = {} } = data;
-  const { id, title } = task;
+  const { id, title, completed } = task;
 
   const handleRename = () => {
     const newTitle = prompt('Please enter a new name for your task', title);
@@ -51,6 +56,21 @@ const TaskDetailsContainer = ({ taskId }) => {
           id,
           __typename: 'Task',
           title: newTitle,
+        },
+      },
+    });
+  };
+
+  const handleCompleted = event => {
+    const { checked } = event.target;
+    completeTask({
+      variables: { id, completed: checked },
+      optimisticResponse: {
+        __typename: 'Mutation',
+        completeTask: {
+          id,
+          __typename: 'Task',
+          completed: checked,
         },
       },
     });
@@ -78,7 +98,10 @@ const TaskDetailsContainer = ({ taskId }) => {
           <a>[back]</a>
         </Link>
       </div>
-      <h2>{title}</h2>
+      <h2>
+        <input type="checkbox" checked={completed} onChange={handleCompleted} />
+        {title}
+      </h2>
       <div>
         <button onClick={handleRename}>rename</button>{' '}
         <button onClick={handleDelete}>delete</button>
