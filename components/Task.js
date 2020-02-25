@@ -16,13 +16,13 @@ const DeleteButton = styled.button`
 `;
 
 const Task = ({ task, onCompleted, onDelete }) => {
-  const { id, title } = task;
+  const { id, title, completed = false } = task;
 
   return (
     <TaskWrapper>
       <StyledCheckbox
         type="checkbox"
-        checked={task.completed}
+        checked={!!completed}
         onChange={event => {
           onCompleted(id, event.target.checked);
         }}

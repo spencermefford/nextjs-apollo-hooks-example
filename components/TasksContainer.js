@@ -48,7 +48,7 @@ const TasksContainer = () => {
           __typename: 'Mutation',
           createTask: {
             id: '-1',
-            title: 'foo',
+            title,
             completed: false,
             __typename: 'Task',
           },
