@@ -55,6 +55,14 @@ const TasksContainer = () => {
   const handleCompleted = (id, completed) => {
     completeTask({
       variables: { id, completed },
+      optimisticResponse: {
+        __typename: 'Mutation',
+        completeTask: {
+          id,
+          __typename: 'Task',
+          completed,
+        },
+      },
     });
   };
 
