@@ -14,22 +14,21 @@ const TASK_QUERY = gql`
   }
 `;
 
-// const CREATE_TASK = gql`
-//   mutation CreateTask($title: String!) {
-//     createTask(title: $title) {
-//       id
-//       title
-//     }
-//   }
-// `;
+const RENAME_TASK = gql`
+  mutation RenameTask($id: ID!, $title: String!) {
+    renameTask(id: $id, title: $title) {
+      id
+      title
+    }
+  }
+`;
 
 const TaskDetailsContainer = ({ taskId }) => {
   const { loading, data = {} } = useQuery(TASK_QUERY, {
     variables: { id: taskId },
   });
-  // const [addTask] = useMutation(CREATE_TASK);
+  const [renameTask] = useMutation(RENAME_TASK);
   const [deleteTask] = useMutation(DELETE_TASK, {
-    variables: { id: taskId },
     onCompleted: () => {
       Router.replace('/');
     },
@@ -39,39 +38,38 @@ const TaskDetailsContainer = ({ taskId }) => {
 
   if (!data.task) return <Error statusCode={404} />;
 
-  // const handleKeyDown = e => {
-  //   if (e.key === 'Enter') {
-  //     const title = e.target.value;
-  //     e.target.value = '';
-  //     addTask({
-  //       variables: { title },
-  //       update: (cache, { data: { createTask } }) => {
-  //         const { tasks } = cache.readQuery({ query: TASKS_QUERY });
-  //         cache.writeQuery({
-  //           query: TASKS_QUERY,
-  //           data: { tasks: tasks.concat([createTask]) },
-  //         });
-  //       },
-  //     });
-  //   }
-  // };
+  const { task = {} } = data;
+  const { id, title } = task;
+
+  const handleRename = () => {
+    const newTitle = prompt('Please enter a new name for your task', title);
+    renameTask({
+      variables: { id, title: newTitle },
+      optimisticResponse: {
+        __typename: 'Mutation',
+        renameTask: {
+          id,
+          __typename: 'Task',
+          title: newTitle,
+        },
+      },
+    });
+  };
 
   const handleDelete = () => {
     if (confirm('Are you sure you want to delete that task?')) {
       deleteTask({
+        variables: { id },
         update: cache => {
           const { tasks = [] } = cache.readQuery({ query: TASKS_QUERY });
           cache.writeQuery({
             query: TASKS_QUERY,
-            data: { tasks: tasks.filter(task => task.id !== taskId) },
+            data: { tasks: tasks.filter(t => t.id !== id) },
           });
         },
       });
     }
   };
-
-  const { task = {} } = data;
-  const { title } = task;
 
   return (
     <div>
@@ -82,6 +80,7 @@ const TaskDetailsContainer = ({ taskId }) => {
       </div>
       <h2>{title}</h2>
       <div>
+        <button onClick={handleRename}>rename</button>{' '}
         <button onClick={handleDelete}>delete</button>
       </div>
     </div>
