@@ -27,7 +27,6 @@ export default ({ children }) => (
         background-color: #22bad9;
         border: 0;
         color: white;
-        display: flex;
         padding: 5px 7px;
         transition: background-color 0.3s;
       }
@@ -42,4 +41,4 @@ export default ({ children }) => (
       }
     `}</style>
   </main>
-)
+);

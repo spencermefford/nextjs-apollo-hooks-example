@@ -12,6 +12,7 @@
     "@apollo/react-ssr": "4.0.0-beta.1",
     "apollo-datasource-rest": "^0.6.11",
     "apollo-server-express": "^2.10.1",
+    "babel-plugin-styled-components": "^1.10.7",
     "graphql": "^14.6.0",
     "isomorphic-unfetch": "^3.0.0",
     "json-server": "^0.15.1",
@@ -20,7 +21,8 @@
     "nodemon": "^1.19.4",
     "prop-types": "^15.6.2",
     "react": "^16.12.0",
-    "react-dom": "^16.12.0"
+    "react-dom": "^16.12.0",
+    "styled-components": "^5.0.1"
   },
   "license": "ISC",
   "devDependencies": {
