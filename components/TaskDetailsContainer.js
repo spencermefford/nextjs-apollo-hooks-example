@@ -93,6 +93,13 @@ const TaskDetailsContainer = ({ taskId }) => {
 
   return (
     <div>
+      <style jsx>{`
+        button {
+          display: inline-block;
+          margin-right: 2px;
+          cursor: pointer;
+        }
+      `}</style>
       <div>
         <Link href="/">
           <a>[back]</a>
@@ -102,8 +109,8 @@ const TaskDetailsContainer = ({ taskId }) => {
         <input type="checkbox" checked={completed} onChange={handleCompleted} />
         {title}
       </h2>
-      <div>
-        <button onClick={handleRename}>rename</button>{' '}
+      <div className="buttons">
+        <button onClick={handleRename}>rename</button>
         <button onClick={handleDelete}>delete</button>
       </div>
     </div>

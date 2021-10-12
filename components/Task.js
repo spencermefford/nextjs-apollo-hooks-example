@@ -6,21 +6,24 @@ const Task = ({ task, onCompleted, onDelete }) => {
   const { id, title, completed = false } = task;
 
   return (
-    <div class="task-wrapper">
+    <div className="task-wrapper">
       <style jsx>{`
         .task-wrapper {
           margin-bottom: 5px;
+          border: 1px solid #ccc;
+          padding: 3px;
         }
         .task-checkbox {
           margin-right: 8px;
         }
         button {
+          margin-top: 2px;
           cursor: pointer;
         }
       `}</style>
       <input
         type="checkbox"
-        class="task-checkbox"
+        className="task-checkbox"
         checked={!!completed}
         onChange={event => {
           onCompleted(id, event.target.checked);
