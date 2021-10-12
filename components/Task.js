@@ -1,27 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
-import styled from 'styled-components';
-
-const TaskWrapper = styled.div`
-  margin-bottom: 5px;
-`;
-
-const StyledCheckbox = styled.input`
-  margin-right: 8px;
-`;
-
-const DeleteButton = styled.button`
-  cursor: pointer;
-`;
 
 const Task = ({ task, onCompleted, onDelete }) => {
   const { id, title, completed = false } = task;
 
   return (
-    <TaskWrapper>
-      <StyledCheckbox
+    <div class="task-wrapper">
+      <style jsx>{`
+        .task-wrapper {
+          margin-bottom: 5px;
+        }
+        .task-checkbox {
+          margin-right: 8px;
+        }
+        button {
+          cursor: pointer;
+        }
+      `}</style>
+      <input
         type="checkbox"
+        class="task-checkbox"
         checked={!!completed}
         onChange={event => {
           onCompleted(id, event.target.checked);
@@ -30,15 +29,15 @@ const Task = ({ task, onCompleted, onDelete }) => {
       <Link href="/task/[id]" as={`/task/${id}`}>
         <a>{title}</a>
       </Link>{' '}
-      <DeleteButton
+      <button
         title="Delete"
         onClick={() => {
           onDelete(id);
         }}
       >
         delete
-      </DeleteButton>
-    </TaskWrapper>
+      </button>
+    </div>
   );
 };
 

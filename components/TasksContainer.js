@@ -5,7 +5,6 @@ import {
   DELETE_TASK,
   COMPLETE_TASK,
 } from '../lib/graphql/tasks.graphql';
-import styled from 'styled-components';
 
 const CREATE_TASK = gql`
   mutation CreateTask($title: String!) {
@@ -15,12 +14,6 @@ const CREATE_TASK = gql`
       completed
     }
   }
-`;
-
-const TaskListWrapper = styled.ul`
-  list-style: none;
-  padding-left: 0;
-  margin: 25px 0;
 `;
 
 const TasksContainer = () => {
@@ -88,14 +81,21 @@ const TasksContainer = () => {
 
   return (
     <div>
+      <style jsx>{`
+        ul {
+          list-style: none;
+          padding-left: 0;
+          margin: 25px 0;
+        }
+      `}</style>
       <input
         type="text"
         onKeyDown={handleKeyDown}
         placeholder="Add a task..."
         autoFocus={true}
       />
-      <TaskListWrapper>
-        {data.tasks.map(task => (
+      <ul>
+        {data?.tasks?.map(task => (
           <li key={task.id}>
             <Task
               task={task}
@@ -104,7 +104,7 @@ const TasksContainer = () => {
             />
           </li>
         ))}
-      </TaskListWrapper>
+      </ul>
     </div>
   );
 };

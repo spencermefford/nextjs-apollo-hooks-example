@@ -1,31 +1,25 @@
 {
-  "name": "with-apollo",
-  "version": "2.0.0",
+  "private": true,
   "scripts": {
-    "dev": "concurrently --names \"next,api\" -c \"bgBlue,bgMagenta\" \"node server.js\" \"npm:start-api\"",
+    "dev": "concurrently --names \"next,api,db\" -c \"bgBlue,bgMagenta,bgGreen\" \"next -p 3003\" \"node server/index.js\" \"npm:start-api\"",
     "build": "next build",
-    "start": "NODE_ENV=production node server.js",
-    "start-api": "json-server --watch db.json --port 3001"
+    "start": "next start",
+    "start-api": "json-server --watch api/db.json --port 3001"
   },
   "dependencies": {
-    "@apollo/client": "^3.0.0-beta.37",
-    "@apollo/react-ssr": "4.0.0-beta.1",
-    "apollo-datasource-rest": "^0.6.11",
-    "apollo-server-express": "^2.10.1",
-    "babel-plugin-styled-components": "^1.10.7",
-    "graphql": "^14.6.0",
-    "isomorphic-unfetch": "^3.0.0",
-    "json-server": "^0.15.1",
-    "lodash": "^4.17.15",
+    "@apollo/client": "3.1.1",
+    "apollo-datasource-rest": "^3.3.0",
+    "apollo-server": "^3.4.0",
+    "deepmerge": "^4.2.2",
+    "graphql": "^15.6.1",
+    "json-server": "^0.17.0",
+    "lodash": "^4.17.21",
     "next": "latest",
-    "nodemon": "^1.19.4",
     "prop-types": "^15.6.2",
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0",
-    "styled-components": "^5.0.1"
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
   },
-  "license": "ISC",
   "devDependencies": {
-    "concurrently": "^5.1.0"
+    "concurrently": "^6.3.0"
   }
 }

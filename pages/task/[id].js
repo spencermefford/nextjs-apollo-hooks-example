@@ -1,7 +1,6 @@
 import { useRouter } from 'next/router';
 import App from '../../components/App';
 import TaskDetailsContainer from '../../components/TaskDetailsContainer';
-import { withApollo } from '../../lib/apollo';
 
 const TaskDetailsPage = () => {
   const router = useRouter();
@@ -14,4 +13,4 @@ const TaskDetailsPage = () => {
   );
 };
 
-export default withApollo(TaskDetailsPage);
+export default TaskDetailsPage;

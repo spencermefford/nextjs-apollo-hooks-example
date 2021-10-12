@@ -1,12 +1,10 @@
-# Next and Apollo with Hooks
+# Apollo Client Hooks
 
-A sample app that utilizes Next.js and Apollo with React hooks.
+## Getting Started
 
-## Run the App
-
-```
+```bash
 npm i
-
-# Start Next.js, Apollo server, and mock data API
 npm run dev
 ```
+
+Visit [http://localhost:3003](http://localhost:3003) in your browser.

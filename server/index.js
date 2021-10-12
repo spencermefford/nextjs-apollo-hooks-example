@@ -1,6 +1,33 @@
-const { ApolloServer, gql } = require('apollo-server-express');
-const { isEmpty } = require('lodash');
-const TasksAPI = require('./tasks-api');
+const { ApolloServer, gql } = require('apollo-server');
+const { RESTDataSource } = require('apollo-datasource-rest');
+const isEmpty = require('lodash/isEmpty');
+
+class TasksAPI extends RESTDataSource {
+  constructor() {
+    super();
+    this.baseURL = 'http://localhost:3001/';
+  }
+
+  async getTasks() {
+    return this.get('tasks');
+  }
+
+  async getTask(id) {
+    return this.get(`tasks/${id}`);
+  }
+
+  async createTask(title) {
+    return this.post('tasks', { title });
+  }
+
+  async updateTask(id, task) {
+    return this.patch(`tasks/${id}`, task);
+  }
+
+  async deleteTask(id) {
+    return this.delete(`tasks/${id}`);
+  }
+}
 
 // Construct a schema, using GraphQL schema language
 const typeDefs = gql`
@@ -49,13 +76,17 @@ const resolvers = {
   },
 };
 
-const createApolloServer = () =>
-  new ApolloServer({
-    typeDefs,
-    resolvers,
-    dataSources: () => ({
-      tasksAPI: new TasksAPI(),
-    }),
-  });
+// The ApolloServer constructor requires two parameters: your schema
+// definition and your set of resolvers.
+const server = new ApolloServer({ 
+  typeDefs, 
+  resolvers,
+  dataSources: () => ({
+    tasksAPI: new TasksAPI(),
+  }),
+});
 
-module.exports = createApolloServer;
+// The `listen` method launches a web server.
+server.listen().then(({ url }) => {
+  console.log(`🚀  Server ready at ${url}`);
+});
