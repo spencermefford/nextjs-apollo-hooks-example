@@ -1,10 +1,10 @@
 {
   "private": true,
   "scripts": {
-    "dev": "concurrently --names \"next,api,db\" -c \"bgBlue,bgMagenta,bgGreen\" \"next -p 3003\" \"node server/index.js\" \"npm:start-api\"",
+    "dev": "concurrently --names \"next,graphql,api\" -c \"bgBlue,bgMagenta,bgGreen\" \"next -p 3003\" \"node server/index.js\" \"npm:start-api\"",
     "build": "next build",
     "start": "next start",
-    "start-api": "json-server --watch api/db.json --port 3001"
+    "start-api": "json-server --watch api/db.js --port 3001"
   },
   "dependencies": {
     "@apollo/client": "3.1.1",
@@ -17,9 +17,16 @@
     "next": "latest",
     "prop-types": "^15.6.2",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react-dom": "^17.0.2",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
-    "concurrently": "^6.3.0"
+    "concurrently": "^6.3.0",
+    "eslint": "^7.2.0",
+    "eslint-config-airbnb": "18.2.1",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-react": "^7.21.5",
+    "eslint-plugin-react-hooks": "^1.7.0"
   }
 }

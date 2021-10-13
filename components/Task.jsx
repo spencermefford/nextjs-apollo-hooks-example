@@ -7,7 +7,8 @@ const Task = ({ task, onCompleted, onDelete }) => {
 
   return (
     <div className="task-wrapper">
-      <style jsx>{`
+      <style jsx>
+        {`
         .task-wrapper {
           margin-bottom: 5px;
           border: 1px solid #ccc;
@@ -20,20 +21,24 @@ const Task = ({ task, onCompleted, onDelete }) => {
           margin-top: 2px;
           cursor: pointer;
         }
-      `}</style>
+      `}
+
+      </style>
       <input
         type="checkbox"
         className="task-checkbox"
         checked={!!completed}
-        onChange={event => {
+        onChange={(event) => {
           onCompleted(id, event.target.checked);
         }}
       />
       <Link href="/task/[id]" as={`/task/${id}`}>
         <a>{title}</a>
-      </Link>{' '}
+      </Link>
+      {' '}
       <button
         title="Delete"
+        type="button"
         onClick={() => {
           onDelete(id);
         }}

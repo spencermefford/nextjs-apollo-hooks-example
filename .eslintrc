@@ -1,0 +1,10 @@
+{
+  "extends": ["airbnb", "airbnb/hooks"],
+  "rules": {
+    // Override our default settings just for this directory
+    "react/react-in-jsx-scope": "off",
+    "react/prop-types": "off",
+    "jsx-a11y/anchor-is-valid": "off",
+    "max-len": "200"
+}
+}

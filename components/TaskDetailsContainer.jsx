@@ -61,7 +61,7 @@ const TaskDetailsContainer = ({ taskId }) => {
     });
   };
 
-  const handleCompleted = event => {
+  const handleCompleted = (event) => {
     const { checked } = event.target;
     completeTask({
       variables: { id, completed: checked },
@@ -80,11 +80,11 @@ const TaskDetailsContainer = ({ taskId }) => {
     if (confirm('Are you sure you want to delete that task?')) {
       deleteTask({
         variables: { id },
-        update: cache => {
+        update: (cache) => {
           const { tasks = [] } = cache.readQuery({ query: TASKS_QUERY });
           cache.writeQuery({
             query: TASKS_QUERY,
-            data: { tasks: tasks.filter(t => t.id !== id) },
+            data: { tasks: tasks.filter((t) => t.id !== id) },
           });
         },
       });
@@ -93,25 +93,30 @@ const TaskDetailsContainer = ({ taskId }) => {
 
   return (
     <div>
-      <style jsx>{`
+      <style jsx>
+        {`
         button {
           display: inline-block;
           margin-right: 2px;
           cursor: pointer;
+          
         }
-      `}</style>
+      `}
+
+      </style>
       <div>
         <Link href="/">
           <a>[back]</a>
         </Link>
       </div>
+
       <h2>
         <input type="checkbox" checked={completed} onChange={handleCompleted} />
         {title}
       </h2>
       <div className="buttons">
-        <button onClick={handleRename}>rename</button>
-        <button onClick={handleDelete}>delete</button>
+        <button type="button" onClick={handleRename}>rename</button>
+        <button type="button" onClick={handleDelete}>delete</button>
       </div>
     </div>
   );
