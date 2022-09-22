@@ -1,5 +1,7 @@
 # Apollo Client Hooks
 
+This is a basic TODO app showcasing Next.js and Apollo Hooks. It has a GraphQL backend that depends on a mock API created by `json-server`.
+
 ## Getting Started
 
 ```bash
