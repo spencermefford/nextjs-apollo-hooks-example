@@ -12,7 +12,7 @@
     "apollo-server": "^3.4.0",
     "deepmerge": "^4.2.2",
     "graphql": "^15.6.1",
-    "json-server": "^0.17.0",
+    "json-server": "^0.17.1",
     "lodash": "^4.17.21",
     "next": "latest",
     "prop-types": "^15.6.2",
